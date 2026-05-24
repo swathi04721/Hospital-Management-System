@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>View Patients</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<h1>🩺 Patient Records</h1>
+
+<table id="patientTable" border="1" align="center" cellpadding="10">
+
+</table>
+<tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Age</th>
+    <th>Disease</th>
+    <th>Phone</th>
+    <th>Action</th>
+</tr>
+
+{% for patient in patients %}
+
+<tr>
+
+    <td>{{ patient[0] }}</td>
+    <td>{{ patient[1] }}</td>
+    <td>{{ patient[2] }}</td>
+    <td>{{ patient[3] }}</td>
+    <td>{{ patient[4] }}</td>
+
+    <td>
+
+        <a href="/edit_patient/{{ patient[0] }}">
+            <button>Edit</button>
+        </a>
+
+        <a href="/delete_patient/{{ patient[0] }}">
+            <button>Delete</button>
+        </a>
+
+    </td>
+
+</tr>
+
+{% endfor %}
+<center>
+
+<input type="text"
+id="searchInput"
+placeholder="Search Patient..."
+onkeyup="searchPatient()"
+style="padding:10px; width:300px; margin-bottom:20px;">
+
+</center>
+</table>
+<script>
+
+function searchPatient() {
+
+    let input = document.getElementById("searchInput");
+
+    let filter = input.value.toUpperCase();
+
+    let table = document.getElementById("patientTable");
+
+    let tr = table.getElementsByTagName("tr");
+
+    for (let i = 1; i < tr.length; i++) {
+
+        let td = tr[i].getElementsByTagName("td")[1];
+
+        if (td) {
+
+            let txtValue = td.textContent || td.innerText;
+
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+
+                tr[i].style.display = "";
+
+            } else {
+
+                tr[i].style.display = "none";
+            }
+        }
+    }
+}
+
+</script>
+</body>
+</html>

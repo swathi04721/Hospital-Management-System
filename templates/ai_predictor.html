@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>AI Health Predictor</title>
+
+    <link rel="stylesheet"
+    href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<div class="login-box">
+
+    <h1>🤖 AI Health Risk Predictor</h1>
+
+    <form action="/predict" method="POST">
+
+        <input type="number" name="age"
+        placeholder="Enter Age" required>
+
+        <input type="number" name="heart_rate"
+        placeholder="Heart Rate" required>
+
+        <input type="number" name="sugar"
+        placeholder="Sugar Level" required>
+
+        <button type="submit">
+            Predict Risk
+        </button>
+
+    </form>
+
+    {% if result %}
+
+    <h2>{{ result }}</h2>
+
+    {% endif %}
+
+</div>
+
+</body>
+</html>

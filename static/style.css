@@ -1,0 +1,161 @@
+.dashboard {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.card {
+    background: white;
+    width: 220px;
+    margin: 15px;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0px 0px 15px gray;
+    text-align: center;
+}
+
+.card h2 {
+    color: darkblue;
+}
+
+.card p {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.chart-container {
+    width: 70%;
+    margin: auto;
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+}
+body {
+    margin: 0;
+    font-family: Arial;
+    background-color: #f4f4f4;
+}
+
+.sidebar {
+
+    width: 240px;
+    height: 100vh;
+
+    background: linear-gradient(
+        to bottom,
+        #141e30,
+        #243b55
+    );
+
+    position: fixed;
+
+    padding-top: 20px;
+
+    box-shadow: 4px 0px 10px rgba(0,0,0,0.2);
+}
+
+.sidebar h2 {
+    color: white;
+    text-align: center;
+}
+
+.sidebar a {
+    display: block;
+    color: white;
+    padding: 15px;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.sidebar a:hover {
+
+    background-color: rgba(255,255,255,0.2);
+
+    padding-left: 25px;
+
+    transition: 0.3s;
+}
+.main-content {
+    margin-left: 240px;
+    padding: 20px;
+}
+
+.dashboard {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.card {
+
+    background: white;
+    width: 220px;
+    margin: 15px;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0px 4px 20px rgba(0,0,0,0.2);
+    text-align: center;
+
+    transition: 0.3s;
+}
+.card:hover {
+
+    transform: translateY(-10px);
+
+    box-shadow: 0px 8px 25px rgba(0,0,0,0.3);
+}
+.card p {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.chart-container {
+    width: 80%;
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    margin-top: 30px;
+}
+.home-body {
+
+    margin: 0;
+    padding: 0;
+    font-family: Arial;
+    background: linear-gradient(to right, #141e30, #243b55);
+    color: white;
+}
+
+.hero {
+
+    text-align: center;
+    padding-top: 200px;
+}
+
+.hero h1 {
+
+    font-size: 55px;
+}
+
+.hero p {
+
+    font-size: 22px;
+    margin-top: 20px;
+}
+
+.hero-buttons button {
+
+    margin: 20px;
+    padding: 15px 30px;
+    font-size: 18px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+#loader {
+
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 25px;
+    color: white;
+}

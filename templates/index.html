@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Smart Hospital Dashboard</title>
+
+    <link rel="stylesheet"
+    href="{{ url_for('static', filename='style.css') }}">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+<body>
+
+<div class="sidebar">
+
+    <h2>🏥 Hospital</h2>
+
+    <a href="/dashboard">Dashboard</a>
+
+    <a href="/patients">Add Patient</a>
+
+    <a href="/view_patients">View Patients</a>
+
+    <a href="/ai_predictor">AI Predictor</a>
+
+    <a href="/">Logout</a>
+
+</div>
+
+<div class="main-content">
+
+    <h1>Smart Hospital Analytics Dashboard</h1>
+
+    <div class="dashboard">
+
+        <div class="card">
+            <h2>Total Patients</h2>
+            <p>{{ total_patients }}</p>
+        </div>
+
+        <div class="card">
+            <h2>Doctors</h2>
+            <p>25</p>
+        </div>
+
+        <div class="card">
+            <h2>Emergency Cases</h2>
+            <p>15</p>
+        </div>
+
+        <div class="card">
+            <h2>Revenue</h2>
+            <p>₹50,000</p>
+        </div>
+
+    </div>
+
+    <div class="chart-container">
+
+        <canvas id="myChart"></canvas>
+
+    </div>
+
+</div>
+
+<script>
+
+const ctx = document.getElementById('myChart');
+
+new Chart(ctx, {
+
+    type: 'bar',
+
+    data: {
+
+        labels: ['Patients', 'Doctors', 'Emergency', 'Appointments'],
+
+        datasets: [{
+
+            label: 'Hospital Analytics',
+
+            data: [120, 25, 15, 40],
+
+            borderWidth: 1
+
+        }]
+    },
+
+    options: {
+
+        scales: {
+
+            y: {
+
+                beginAtZero: true
+            }
+        }
+    }
+});
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Smart Hospital System</title>
+
+    <link rel="stylesheet"
+    href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body class="home-body">
+<div id="loader">
+
+    <h1>🏥 Loading Neelima Hospital...</h1>
+
+</div>
+<div class="hero" id="mainContent" style="display:none;"></div>
+
+    <h1>🏥Neelima Hospital</h1>
+
+    <p>
+        AI Powered Healthcare & Patient Management Platform
+    </p>
+
+    <div class="hero-buttons">
+
+        <a href="/">
+            <button>Login</button>
+        </a>
+
+        <a href="/dashboard">
+            <button>View Dashboard</button>
+        </a>
+
+    </div>
+
+</div>
+<script>
+
+setTimeout(() => {
+
+    document.getElementById("loader").style.display = "none";
+
+    document.getElementById("mainContent").style.display = "block";
+
+}, 2500);
+
+</script>
+</body>
+</html>
