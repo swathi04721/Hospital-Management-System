@@ -8,6 +8,8 @@ DATABASE_URL = os.getenv("DATABASE_URL")
 
 conn = psycopg2.connect(DATABASE_URL)
 cur = conn.cursor()
+
+# Create Table Automatically
 cur.execute("""
 CREATE TABLE IF NOT EXISTS patients (
     id SERIAL PRIMARY KEY,
@@ -19,7 +21,8 @@ CREATE TABLE IF NOT EXISTS patients (
 
 conn.commit()
 
-# Home/Login Page
+
+# Login Page
 @app.route('/')
 def login():
     return render_template('login.html')
@@ -47,12 +50,15 @@ def login_check():
 # Dashboard
 @app.route('/dashboard')
 def dashboard():
-
     return render_template('index.html')
-# Patient Form Page
+
+
+# Patient Form
 @app.route('/patients')
 def patients():
     return render_template('patients.html')
+
+
 # Add Patient
 @app.route('/add_patient', methods=['POST'])
 def add_patient():
@@ -71,6 +77,10 @@ def add_patient():
     cur.execute(query, values)
 
     conn.commit()
+
+    return redirect('/view_patients')
+
+
 # View Patients
 @app.route('/view_patients')
 def view_patients():
@@ -83,6 +93,7 @@ def view_patients():
         'view_patients.html',
         patients=patients
     )
-    return redirect('/view_patients')
+
+
 if __name__ == "__main__":
     app.run(debug=True)
