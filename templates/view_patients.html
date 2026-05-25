@@ -1,46 +1,127 @@
 <!DOCTYPE html>
 <html>
-
 <head>
+    <title>Patient Records</title>
 
-<title>Patient Records</title>
+    <style>
+        body{
+            font-family: Arial;
+            background:#f4f6f9;
+            padding:30px;
+        }
 
-<link rel="stylesheet"
-href="{{ url_for('static', filename='css/style.css') }}">
+        h1{
+            color:#2c3e50;
+            text-align:center;
+        }
 
+        table{
+            width:100%;
+            border-collapse: collapse;
+            background:white;
+            margin-top:20px;
+            box-shadow:0px 0px 10px rgba(0,0,0,0.1);
+        }
+
+        th, td{
+            padding:12px;
+            border:1px solid #ddd;
+            text-align:center;
+        }
+
+        th{
+            background:#3498db;
+            color:white;
+        }
+
+        tr:nth-child(even){
+            background:#f2f2f2;
+        }
+
+        .btn{
+            padding:6px 12px;
+            text-decoration:none;
+            color:white;
+            border-radius:5px;
+        }
+
+        .edit{
+            background:orange;
+        }
+
+        .delete{
+            background:red;
+        }
+
+        input{
+            padding:10px;
+            width:300px;
+            margin-top:20px;
+        }
+    </style>
 </head>
 
 <body>
 
-<div class="container">
-
 <h1>Patient Records</h1>
 
-<table>
+<center>
+    <input type="text" id="search" placeholder="Search Patient..." onkeyup="searchPatient()">
+</center>
+
+<table id="patientTable">
 
 <tr>
     <th>ID</th>
     <th>Name</th>
     <th>Age</th>
     <th>Disease</th>
+    <th>Phone</th>
+    <th>Action</th>
 </tr>
 
 {% for patient in patients %}
-
 <tr>
+    <td>{{ patient[0] }}</td>
+    <td>{{ patient[1] }}</td>
+    <td>{{ patient[2] }}</td>
+    <td>{{ patient[3] }}</td>
+    <td>{{ patient[4] }}</td>
 
-<td>{{ patient[0] }}</td>
-<td>{{ patient[1] }}</td>
-<td>{{ patient[2] }}</td>
-<td>{{ patient[3] }}</td>
+    <td>
+        <a href="/edit/{{ patient[0] }}" class="btn edit">Edit</a>
 
+        <a href="/delete/{{ patient[0] }}" class="btn delete">
+            Delete
+        </a>
+    </td>
 </tr>
-
 {% endfor %}
 
 </table>
 
-</div>
+<script>
+function searchPatient() {
+
+    let input = document.getElementById("search").value.toLowerCase();
+
+    let table = document.getElementById("patientTable");
+
+    let rows = table.getElementsByTagName("tr");
+
+    for(let i=1; i<rows.length; i++){
+
+        let text = rows[i].innerText.toLowerCase();
+
+        if(text.includes(input)){
+            rows[i].style.display = "";
+        }
+        else{
+            rows[i].style.display = "none";
+        }
+    }
+}
+</script>
 
 </body>
 </html>
