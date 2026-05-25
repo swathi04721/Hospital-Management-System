@@ -1,4 +1,4 @@
 flask
-mysql-connector-python
 gunicorn
 qrcode
+psycopg2-binary
