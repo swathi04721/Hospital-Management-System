@@ -99,7 +99,18 @@ def view_patients():
         'view_patients.html',
         patients=patients
     )
+# Delete Patient
+@app.route('/delete/<int:id>')
+def delete(id):
 
+    cur.execute(
+        "DELETE FROM patients WHERE id=%s",
+        (id,)
+    )
+
+    conn.commit()
+
+    return redirect('/view_patients')
 
 if __name__ == "__main__":
     app.run(debug=True)
