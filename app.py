@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template
 import os
 import psycopg2
 
@@ -11,39 +11,10 @@ cur = conn.cursor()
 
 @app.route('/')
 def home():
-    return render_template('login.html')
-
-@app.route('/login', methods=['POST'])
-def login():
-    username = request.form['username']
-    password = request.form['password']
-
-    if username == "admin" and password == "admin":
-        return redirect(url_for('dashboard'))
-    else:
-        return "Invalid Username or Password"
-
-@app.route('/dashboard')
-def dashboard():
-    return render_template('dashboard.html')
-@app.route('/patients')
-def patients():
-    return render_template('patients.html')
-@app.route('/add_patient', methods=['POST'])
-def add_patient():
-
-    name = request.form['name']
-    age = request.form['age']
-    disease = request.form['disease']
-
-    cur.execute(
-        "INSERT INTO patients (name, age, disease) VALUES (%s, %s, %s)",
-        (name, age, disease)
-    )
-
-    conn.commit()
-
-    return redirect('/patients')
-
-if __name__ == '__main__':
+    return """
+    <h1>Hospital Management System</h1>
+    <h2>Website deployed successfully 🎉</h2>
+    """
+    
+if __name__ == "__main__":
     app.run(debug=True)
