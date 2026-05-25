@@ -26,6 +26,24 @@ def login():
 @app.route('/dashboard')
 def dashboard():
     return render_template('dashboard.html')
+@app.route('/patients')
+def patients():
+    return render_template('patients.html')
+@app.route('/add_patient', methods=['POST'])
+def add_patient():
+
+    name = request.form['name']
+    age = request.form['age']
+    disease = request.form['disease']
+
+    cur.execute(
+        "INSERT INTO patients (name, age, disease) VALUES (%s, %s, %s)",
+        (name, age, disease)
+    )
+
+    conn.commit()
+
+    return redirect('/patients')
 
 if __name__ == '__main__':
     app.run(debug=True)
