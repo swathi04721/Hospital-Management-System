@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, redirect
 import os
 import psycopg2
 
@@ -9,12 +9,37 @@ DATABASE_URL = os.getenv("DATABASE_URL")
 conn = psycopg2.connect(DATABASE_URL)
 cur = conn.cursor()
 
+# Home/Login Page
 @app.route('/')
-def home():
-    return """
-    <h1>Hospital Management System</h1>
-    <h2>Website deployed successfully 🎉</h2>
-    """
-    
+def login():
+    return render_template('login.html')
+
+
+# Login Check
+@app.route('/login_check', methods=['POST'])
+def login_check():
+
+    username = request.form['username']
+    password = request.form['password']
+
+    if username == "admin" and password == "admin123":
+
+        return redirect('/dashboard')
+
+    else:
+
+        return render_template(
+            'login.html',
+            error="Invalid Username or Password"
+        )
+
+
+# Dashboard
+@app.route('/dashboard')
+def dashboard():
+
+    return render_template('index.html')
+
+
 if __name__ == "__main__":
     app.run(debug=True)
