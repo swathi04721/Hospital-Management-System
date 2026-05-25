@@ -50,8 +50,14 @@ def login_check():
 # Dashboard
 @app.route('/dashboard')
 def dashboard():
-    return render_template('index.html')
 
+    cur.execute("SELECT COUNT(*) FROM patients")
+    total_patients = cur.fetchone()[0]
+
+    return render_template(
+        'index.html',
+        total_patients=total_patients
+    )
 
 # Patient Form
 @app.route('/patients')
