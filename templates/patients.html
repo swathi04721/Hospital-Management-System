@@ -1,32 +1,45 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <title>Patients</title>
+
+    <title>Add Patient</title>
+
+    <link rel="stylesheet"
+    href="{{ url_for('static', filename='css/style.css') }}">
+
 </head>
+
 <body>
 
-    <h1>Patient Management</h1>
+<div class="container">
 
-    <hr>
+<h1>Add Patient</h1>
 
-    <form action="/add_patient" method="POST">
+<form action="/add_patient" method="POST">
 
-        <input type="text" name="name" placeholder="Patient Name" required>
-        <br><br>
+    <input type="text"
+    name="name"
+    placeholder="Enter Name"
+    required>
 
-        <input type="number" name="age" placeholder="Age" required>
-        <br><br>
+    <input type="number"
+    name="age"
+    placeholder="Enter Age"
+    required>
 
-        <input type="text" name="disease" placeholder="Disease" required>
-        <br><br>
+    <input type="text"
+    name="disease"
+    placeholder="Enter Disease"
+    required>
 
-        <button type="submit">Add Patient</button>
+    <button type="submit">
+        Add Patient
+    </button>
 
-    </form>
+</form>
 
-    <br>
-
-    <a href="/dashboard">Back to Dashboard</a>
+</div>
 
 </body>
 </html>
