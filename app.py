@@ -382,15 +382,15 @@ def search_patient():
 
         keyword = request.form['keyword']
 
-cur.execute(
-    """
-    SELECT * FROM patients
-    WHERE name ILIKE %s
-    """,
-    ('%' + keyword + '%',)
-)
+        cur.execute(
+            """
+            SELECT * FROM patients
+            WHERE name ILIKE %s
+            """,
+            ('%' + keyword + '%',)
+        )
 
-patients = cur.fetchall()
+        patients = cur.fetchall()
 
     return render_template(
         'search_patient.html',
