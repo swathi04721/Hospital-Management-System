@@ -83,27 +83,26 @@
 <div class="main">
 
     <h1>Hospital Dashboard</h1>
+<div class="cards">
 
-    <div class="cards">
+    <div class="card">
+        <h3>Total Patients</h3>
+        <h1>{{ total_patients }}</h1>
+    </div>
 
-        <div class="card">
-            <h3>Total Patients</h3>
-            <h1>{{ total_patients }}</h1>
-        </div>
+    <div class="card">
+        <h3>Total Appointments</h3>
+        <h1>{{ total_appointments }}</h1>
+    </div>
 
-        <div class="card">
-            <h3>Doctors</h3>
-            <h1>12</h1>
-        </div>
-
-        <div class="card">
-            <h3>Appointments</h3>
-            <h1>34</h1>
-        </div>
-
+    <div class="card">
+        <h3>Completed Appointments</h3>
+        <h1>{{ completed_appointments }}</h1>
     </div>
 
 </div>
+    
+          
 
 </body>
 </html>
