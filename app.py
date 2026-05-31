@@ -98,6 +98,9 @@ def dashboard():
     cur.execute("SELECT COUNT(*) FROM patients")
     total_patients = cur.fetchone()[0]
 
+    cur.execute("SELECT COUNT(*) FROM doctors")
+    total_doctors = cur.fetchone()[0]
+
     cur.execute("SELECT COUNT(*) FROM appointments")
     total_appointments = cur.fetchone()[0]
 
@@ -108,11 +111,16 @@ def dashboard():
     """)
     completed_appointments = cur.fetchone()[0]
 
+    cur.execute("SELECT COALESCE(SUM(amount),0) FROM bills")
+    total_revenue = cur.fetchone()[0]
+
     return render_template(
         'index.html',
         total_patients=total_patients,
+        total_doctors=total_doctors,
         total_appointments=total_appointments,
-        completed_appointments=completed_appointments
+        completed_appointments=completed_appointments,
+        total_revenue=total_revenue
     )
 
 # -----------------------------
