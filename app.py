@@ -365,6 +365,29 @@ def view_bills():
         'view_bills.html',
         bills=bills
     )
+@app.route('/search_patient', methods=['GET', 'POST'])
+def search_patient():
+
+    patients = []
+
+    if request.method == 'POST':
+
+        keyword = request.form['keyword']
+
+        cur.execute(
+            """
+            SELECT * FROM patients
+            WHERE name ILIKE %s
+            """,
+            ('%' + keyword + '%',)
+        )
+
+        patients = cur.fetchall()
+
+    return render_template(
+        'search_patient.html',
+        patients=patients
+    )
 # -----------------------------
 # RUN APP
 # -----------------------------
