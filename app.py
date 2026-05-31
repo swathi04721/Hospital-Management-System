@@ -29,6 +29,19 @@ CREATE TABLE IF NOT EXISTS appointments (
 """)
 
 conn.commit()
+# Doctors table
+cur.execute("""
+CREATE TABLE IF NOT EXISTS doctors (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(100),
+    specialization VARCHAR(100),
+    phone VARCHAR(20)
+)
+""")
+
+conn.commit()
+
+
 cur.execute("""
 CREATE TABLE IF NOT EXISTS appointments (
     id SERIAL PRIMARY KEY,
@@ -194,5 +207,41 @@ def complete_appointment(id):
     conn.commit()
 
     return redirect('/view_appointments')
+# Doctor Form
+@app.route('/doctors')
+def doctors():
+    return render_template('doctors.html')
+
+
+# Add Doctor
+@app.route('/add_doctor', methods=['POST'])
+def add_doctor():
+
+    name = request.form['name']
+    specialization = request.form['specialization']
+    phone = request.form['phone']
+
+    cur.execute("""
+    INSERT INTO doctors(name, specialization, phone)
+    VALUES (%s, %s, %s)
+    """, (name, specialization, phone))
+
+    conn.commit()
+
+    return redirect('/view_doctors')
+
+
+# View Doctors
+@app.route('/view_doctors')
+def view_doctors():
+
+    cur.execute("SELECT * FROM doctors")
+
+    doctors = cur.fetchall()
+
+    return render_template(
+        'view_doctors.html',
+        doctors=doctors
+    )
 if __name__ == "__main__":
     app.run(debug=True)
