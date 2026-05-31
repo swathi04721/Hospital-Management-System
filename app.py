@@ -310,6 +310,61 @@ def view_medical_history():
         'view_medical_history.html',
         records=records
     )
+# Billing Table
+cur.execute("""
+CREATE TABLE IF NOT EXISTS bills (
+    id SERIAL PRIMARY KEY,
+    patient_name VARCHAR(100),
+    treatment VARCHAR(100),
+    amount DECIMAL(10,2)
+)
+""")
+
+conn.commit()
+# Billing Form
+@app.route('/billing')
+def billing():
+    return render_template('billing.html')
+
+
+# Save Bill
+@app.route('/add_bill', methods=['POST'])
+def add_bill():
+
+    patient_name = request.form['patient_name']
+    treatment = request.form['treatment']
+    amount = request.form['amount']
+
+    cur.execute("""
+    INSERT INTO bills(
+        patient_name,
+        treatment,
+        amount
+    )
+    VALUES (%s,%s,%s)
+    """, (
+        patient_name,
+        treatment,
+        amount
+    ))
+
+    conn.commit()
+
+    return redirect('/view_bills')
+
+
+# View Bills
+@app.route('/view_bills')
+def view_bills():
+
+    cur.execute("SELECT * FROM bills")
+
+    bills = cur.fetchall()
+
+    return render_template(
+        'view_bills.html',
+        bills=bills
+    )
 # -----------------------------
 # RUN APP
 # -----------------------------
