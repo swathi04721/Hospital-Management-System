@@ -396,6 +396,20 @@ def search_patient():
         'search_patient.html',
         patients=patients
     )
+@app.route('/patient_profile/<int:id>')
+def patient_profile(id):
+
+    cur.execute(
+        "SELECT * FROM patients WHERE id=%s",
+        (id,)
+    )
+
+    patient = cur.fetchone()
+
+    return render_template(
+        'patient_profile.html',
+        patient=patient
+    )
 # -----------------------------
 # RUN APP
 # -----------------------------
