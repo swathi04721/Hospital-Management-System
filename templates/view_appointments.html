@@ -14,6 +14,8 @@
     <th>Patient</th>
     <th>Doctor</th>
     <th>Date</th>
+    <th>Status</th>
+    <th>Action</th>
 </tr>
 
 {% for appointment in appointments %}
@@ -23,10 +25,16 @@
     <td>{{ appointment[1] }}</td>
     <td>{{ appointment[2] }}</td>
     <td>{{ appointment[3] }}</td>
+    <td>{{ appointment[4] }}</td>
+
+    <td>
+        <a href="/complete_appointment/{{ appointment[0] }}">
+            Complete
+        </a>
+    </td>
 </tr>
 
 {% endfor %}
-
 </table>
 
 </body>

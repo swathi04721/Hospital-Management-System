@@ -11,11 +11,12 @@ cur = conn.cursor()
 
 # Create Table Automatically
 cur.execute("""
-CREATE TABLE IF NOT EXISTS patients (
+CREATE TABLE IF NOT EXISTS appointments (
     id SERIAL PRIMARY KEY,
-    name VARCHAR(100),
-    age INTEGER,
-    disease VARCHAR(100)
+    patient_name VARCHAR(100),
+    doctor_name VARCHAR(100),
+    appointment_date VARCHAR(100),
+    status VARCHAR(50) DEFAULT 'Pending'
 )
 """)
 
@@ -135,11 +136,15 @@ def book_appointment():
     appointment_date = request.form['appointment_date']
 
     cur.execute("""
-        INSERT INTO appointments
-        (patient_name, doctor_name, appointment_date)
-        VALUES (%s, %s, %s)
-    """, (patient_name, doctor_name, appointment_date))
-
+    INSERT INTO appointments
+    (patient_name, doctor_name, appointment_date, status)
+    VALUES (%s, %s, %s, %s)
+""", (
+    patient_name,
+    doctor_name,
+    appointment_date,
+    "Pending"
+))   
     conn.commit()
 
     return redirect('/view_appointments')
@@ -157,5 +162,16 @@ def view_appointments():
         'view_appointments.html',
         appointments=appointments
     )
+@app.route('/complete_appointment/<int:id>')
+def complete_appointment(id):
+
+    cur.execute(
+        "UPDATE appointments SET status='Completed' WHERE id=%s",
+        (id,)
+    )
+
+    conn.commit()
+
+    return redirect('/view_appointments')
 if __name__ == "__main__":
     app.run(debug=True)
