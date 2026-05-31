@@ -20,7 +20,16 @@ CREATE TABLE IF NOT EXISTS patients (
 """)
 
 conn.commit()
+cur.execute("""
+CREATE TABLE IF NOT EXISTS appointments (
+    id SERIAL PRIMARY KEY,
+    patient_name VARCHAR(100),
+    doctor_name VARCHAR(100),
+    appointment_date VARCHAR(100)
+)
+""")
 
+conn.commit()
 
 # Login Page
 @app.route('/')
@@ -111,6 +120,42 @@ def delete(id):
     conn.commit()
 
     return redirect('/view_patients')
+# Appointment Form
+@app.route('/appointments')
+def appointments():
+    return render_template('appointments.html')
 
+
+# Save Appointment
+@app.route('/book_appointment', methods=['POST'])
+def book_appointment():
+
+    patient_name = request.form['patient_name']
+    doctor_name = request.form['doctor_name']
+    appointment_date = request.form['appointment_date']
+
+    cur.execute("""
+        INSERT INTO appointments
+        (patient_name, doctor_name, appointment_date)
+        VALUES (%s, %s, %s)
+    """, (patient_name, doctor_name, appointment_date))
+
+    conn.commit()
+
+    return redirect('/view_appointments')
+
+
+# View Appointments
+@app.route('/view_appointments')
+def view_appointments():
+
+    cur.execute("SELECT * FROM appointments")
+
+    appointments = cur.fetchall()
+
+    return render_template(
+        'view_appointments.html',
+        appointments=appointments
+    )
 if __name__ == "__main__":
     app.run(debug=True)
