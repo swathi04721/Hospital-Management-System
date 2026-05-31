@@ -8,6 +8,14 @@ DATABASE_URL = os.getenv("DATABASE_URL")
 
 conn = psycopg2.connect(DATABASE_URL)
 cur = conn.cursor()
+try:
+    cur.execute("""
+    ALTER TABLE appointments
+    ADD COLUMN status VARCHAR(50) DEFAULT 'Pending'
+    """)
+    conn.commit()
+except:
+    conn.rollback()
 
 # Create Table Automatically
 cur.execute("""
