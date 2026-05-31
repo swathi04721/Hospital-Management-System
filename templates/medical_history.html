@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Medical History</title>
+</head>
+<body>
+
+<h1>Add Medical History</h1>
+
+<form action="/add_medical_history" method="POST">
+
+    <input type="text"
+           name="patient_name"
+           placeholder="Patient Name"
+           required>
+
+    <br><br>
+
+    <textarea name="disease_history"
+              placeholder="Disease History"
+              rows="4"
+              cols="50"></textarea>
+
+    <br><br>
+
+    <textarea name="allergies"
+              placeholder="Allergies"
+              rows="4"
+              cols="50"></textarea>
+
+    <br><br>
+
+    <textarea name="treatment_notes"
+              placeholder="Treatment Notes"
+              rows="4"
+              cols="50"></textarea>
+
+    <br><br>
+
+    <button type="submit">
+        Save History
+    </button>
+
+</form>
+
+</body>
+</html>

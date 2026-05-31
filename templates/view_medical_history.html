@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Medical History Records</title>
+</head>
+<body>
+
+<h1>Medical History Records</h1>
+
+<table border="1">
+
+<tr>
+    <th>ID</th>
+    <th>Patient</th>
+    <th>Disease History</th>
+    <th>Allergies</th>
+    <th>Treatment Notes</th>
+</tr>
+
+{% for record in records %}
+
+<tr>
+    <td>{{ record[0] }}</td>
+    <td>{{ record[1] }}</td>
+    <td>{{ record[2] }}</td>
+    <td>{{ record[3] }}</td>
+    <td>{{ record[4] }}</td>
+</tr>
+
+{% endfor %}
+
+</table>
+
+</body>
+</html>

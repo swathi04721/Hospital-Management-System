@@ -51,7 +51,18 @@ CREATE TABLE IF NOT EXISTS doctors (
     phone VARCHAR(20)
 )
 """)
+# Medical History Table
+cur.execute("""
+CREATE TABLE IF NOT EXISTS medical_history (
+    id SERIAL PRIMARY KEY,
+    patient_name VARCHAR(100),
+    disease_history TEXT,
+    allergies TEXT,
+    treatment_notes TEXT
+)
+""")
 
+conn.commit()
 conn.commit()
 
 # -----------------------------
@@ -252,7 +263,53 @@ def view_doctors():
         'view_doctors.html',
         doctors=doctors
     )
+# Medical History Form
+@app.route('/medical_history')
+def medical_history():
+    return render_template('medical_history.html')
 
+
+# Save Medical History
+@app.route('/add_medical_history', methods=['POST'])
+def add_medical_history():
+
+    patient_name = request.form['patient_name']
+    disease_history = request.form['disease_history']
+    allergies = request.form['allergies']
+    treatment_notes = request.form['treatment_notes']
+
+    cur.execute("""
+    INSERT INTO medical_history(
+        patient_name,
+        disease_history,
+        allergies,
+        treatment_notes
+    )
+    VALUES (%s,%s,%s,%s)
+    """, (
+        patient_name,
+        disease_history,
+        allergies,
+        treatment_notes
+    ))
+
+    conn.commit()
+
+    return redirect('/view_medical_history')
+
+
+# View Medical History
+@app.route('/view_medical_history')
+def view_medical_history():
+
+    cur.execute("SELECT * FROM medical_history")
+
+    records = cur.fetchall()
+
+    return render_template(
+        'view_medical_history.html',
+        records=records
+    )
 # -----------------------------
 # RUN APP
 # -----------------------------
