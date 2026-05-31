@@ -8,28 +8,41 @@ DATABASE_URL = os.getenv("DATABASE_URL")
 
 conn = psycopg2.connect(DATABASE_URL)
 cur = conn.cursor()
-try:
-    cur.execute("""
-    ALTER TABLE appointments
-    ADD COLUMN status VARCHAR(50) DEFAULT 'Pending'
-    """)
-    conn.commit()
-except:
-    conn.rollback()
 
-# Create Table Automatically
+# -----------------------------
+# DATABASE TABLES
+# -----------------------------
+
+# Patients Table
+cur.execute("""
+CREATE TABLE IF NOT EXISTS patients (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(100),
+    age INTEGER,
+    disease VARCHAR(100)
+)
+""")
+
+# Appointments Table
 cur.execute("""
 CREATE TABLE IF NOT EXISTS appointments (
     id SERIAL PRIMARY KEY,
     patient_name VARCHAR(100),
     doctor_name VARCHAR(100),
-    appointment_date VARCHAR(100),
-    status VARCHAR(50) DEFAULT 'Pending'
+    appointment_date VARCHAR(100)
 )
 """)
 
-conn.commit()
-# Doctors table
+# Add status column if missing
+try:
+    cur.execute("""
+    ALTER TABLE appointments
+    ADD COLUMN status VARCHAR(50) DEFAULT 'Pending'
+    """)
+except:
+    conn.rollback()
+
+# Doctors Table
 cur.execute("""
 CREATE TABLE IF NOT EXISTS doctors (
     id SERIAL PRIMARY KEY,
@@ -41,25 +54,15 @@ CREATE TABLE IF NOT EXISTS doctors (
 
 conn.commit()
 
+# -----------------------------
+# LOGIN
+# -----------------------------
 
-cur.execute("""
-CREATE TABLE IF NOT EXISTS appointments (
-    id SERIAL PRIMARY KEY,
-    patient_name VARCHAR(100),
-    doctor_name VARCHAR(100),
-    appointment_date VARCHAR(100)
-)
-""")
-
-conn.commit()
-
-# Login Page
 @app.route('/')
 def login():
     return render_template('login.html')
 
 
-# Login Check
 @app.route('/login_check', methods=['POST'])
 def login_check():
 
@@ -67,19 +70,17 @@ def login_check():
     password = request.form['password']
 
     if username == "admin" and password == "admin123":
-
         return redirect('/dashboard')
 
-    else:
+    return render_template(
+        'login.html',
+        error="Invalid Username or Password"
+    )
 
-        return render_template(
-            'login.html',
-            error="Invalid Username or Password"
-        )
+# -----------------------------
+# DASHBOARD
+# -----------------------------
 
-
-# Dashboard
-# Dashboard
 @app.route('/dashboard')
 def dashboard():
 
@@ -103,13 +104,15 @@ def dashboard():
         completed_appointments=completed_appointments
     )
 
-# Patient Form
+# -----------------------------
+# PATIENTS
+# -----------------------------
+
 @app.route('/patients')
 def patients():
     return render_template('patients.html')
 
 
-# Add Patient
 @app.route('/add_patient', methods=['POST'])
 def add_patient():
 
@@ -117,21 +120,19 @@ def add_patient():
     age = request.form['age']
     disease = request.form['disease']
 
-    query = """
-    INSERT INTO patients(name, age, disease)
-    VALUES (%s, %s, %s)
-    """
-
-    values = (name, age, disease)
-
-    cur.execute(query, values)
+    cur.execute(
+        """
+        INSERT INTO patients(name, age, disease)
+        VALUES (%s, %s, %s)
+        """,
+        (name, age, disease)
+    )
 
     conn.commit()
 
     return redirect('/view_patients')
 
 
-# View Patients
 @app.route('/view_patients')
 def view_patients():
 
@@ -143,7 +144,8 @@ def view_patients():
         'view_patients.html',
         patients=patients
     )
-# Delete Patient
+
+
 @app.route('/delete/<int:id>')
 def delete(id):
 
@@ -155,13 +157,16 @@ def delete(id):
     conn.commit()
 
     return redirect('/view_patients')
-# Appointment Form
+
+# -----------------------------
+# APPOINTMENTS
+# -----------------------------
+
 @app.route('/appointments')
 def appointments():
     return render_template('appointments.html')
 
 
-# Save Appointment
 @app.route('/book_appointment', methods=['POST'])
 def book_appointment():
 
@@ -173,18 +178,18 @@ def book_appointment():
     INSERT INTO appointments
     (patient_name, doctor_name, appointment_date, status)
     VALUES (%s, %s, %s, %s)
-""", (
-    patient_name,
-    doctor_name,
-    appointment_date,
-    "Pending"
-))   
+    """, (
+        patient_name,
+        doctor_name,
+        appointment_date,
+        "Pending"
+    ))
+
     conn.commit()
 
     return redirect('/view_appointments')
 
 
-# View Appointments
 @app.route('/view_appointments')
 def view_appointments():
 
@@ -196,6 +201,8 @@ def view_appointments():
         'view_appointments.html',
         appointments=appointments
     )
+
+
 @app.route('/complete_appointment/<int:id>')
 def complete_appointment(id):
 
@@ -207,13 +214,16 @@ def complete_appointment(id):
     conn.commit()
 
     return redirect('/view_appointments')
-# Doctor Form
+
+# -----------------------------
+# DOCTORS
+# -----------------------------
+
 @app.route('/doctors')
 def doctors():
     return render_template('doctors.html')
 
 
-# Add Doctor
 @app.route('/add_doctor', methods=['POST'])
 def add_doctor():
 
@@ -231,7 +241,6 @@ def add_doctor():
     return redirect('/view_doctors')
 
 
-# View Doctors
 @app.route('/view_doctors')
 def view_doctors():
 
@@ -243,5 +252,10 @@ def view_doctors():
         'view_doctors.html',
         doctors=doctors
     )
+
+# -----------------------------
+# RUN APP
+# -----------------------------
+
 if __name__ == "__main__":
     app.run(debug=True)
