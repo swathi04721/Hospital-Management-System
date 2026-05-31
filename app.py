@@ -388,7 +388,7 @@ def search_patient():
             WHERE name ILIKE %s
             """,
             ('%' + keyword + '%',)
-        )
+a        )
 
         patients = cur.fetchall()
 
@@ -403,12 +403,22 @@ def patient_profile(id):
         "SELECT * FROM patients WHERE id=%s",
         (id,)
     )
-
     patient = cur.fetchone()
+
+    cur.execute(
+        """
+        SELECT *
+        FROM appointments
+        WHERE patient_name=%s
+        """,
+        (patient[1],)
+    )
+    appointments = cur.fetchall()
 
     return render_template(
         'patient_profile.html',
-        patient=patient
+        patient=patient,
+        appointments=appointments
     )
 # -----------------------------
 # RUN APP

@@ -2,14 +2,82 @@
 <html>
 <head>
     <title>Patient Profile</title>
+
+    <style>
+
+        body{
+            font-family:Arial;
+            background:#f4f6f9;
+            padding:20px;
+        }
+
+        .box{
+            background:white;
+            padding:20px;
+            border-radius:10px;
+            margin-bottom:20px;
+        }
+
+        table{
+            width:100%;
+            border-collapse:collapse;
+            background:white;
+        }
+
+        th{
+            background:#2c3e50;
+            color:white;
+            padding:10px;
+        }
+
+        td{
+            padding:10px;
+            border:1px solid #ddd;
+            text-align:center;
+        }
+
+    </style>
+
 </head>
 <body>
 
-<h1>Patient Profile</h1>
+<div class="box">
 
-<h2>Name: {{ patient[1] }}</h2>
-<h3>Age: {{ patient[2] }}</h3>
-<h3>Disease: {{ patient[3] }}</h3>
+    <h1>Patient Profile</h1>
+
+    <h3>Name: {{ patient[1] }}</h3>
+    <h3>Age: {{ patient[2] }}</h3>
+    <h3>Disease: {{ patient[3] }}</h3>
+
+</div>
+
+<div class="box">
+
+    <h2>Appointments</h2>
+
+    <table>
+
+        <tr>
+            <th>ID</th>
+            <th>Doctor</th>
+            <th>Date</th>
+            <th>Status</th>
+        </tr>
+
+        {% for appointment in appointments %}
+
+        <tr>
+            <td>{{ appointment[0] }}</td>
+            <td>{{ appointment[2] }}</td>
+            <td>{{ appointment[3] }}</td>
+            <td>{{ appointment[4] }}</td>
+        </tr>
+
+        {% endfor %}
+
+    </table>
+
+</div>
 
 </body>
 </html>
