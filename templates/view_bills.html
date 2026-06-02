@@ -14,6 +14,7 @@
     <th>Patient</th>
     <th>Treatment</th>
     <th>Amount</th>
+    <th>PDF</th>
 </tr>
 
 {% for bill in bills %}
@@ -23,6 +24,12 @@
     <td>{{ bill[1] }}</td>
     <td>{{ bill[2] }}</td>
     <td>₹{{ bill[3] }}</td>
+
+    <td>
+        <a href="/download_bill/{{ bill[0] }}">
+            Download PDF
+        </a>
+    </td>
 </tr>
 
 {% endfor %}

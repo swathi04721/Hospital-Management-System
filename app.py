@@ -1,6 +1,9 @@
 from flask import Flask, render_template, request, redirect
 import os
 import psycopg2
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer
+from reportlab.lib.styles import getSampleStyleSheet
+from flask import send_file
 
 app = Flask(__name__)
 
@@ -419,6 +422,48 @@ def patient_profile(id):
         'patient_profile.html',
         patient=patient,
         appointments=appointments
+    )
+@app.route('/download_bill/<int:id>')
+def download_bill(id):
+
+    cur.execute(
+        "SELECT * FROM bills WHERE id=%s",
+        (id,)
+    )
+
+    bill = cur.fetchone()
+
+    pdf_file = f"bill_{id}.pdf"
+
+    doc = SimpleDocTemplate(pdf_file)
+
+    styles = getSampleStyleSheet()
+
+    elements = []
+
+    elements.append(
+        Paragraph("Hospital Invoice", styles['Title'])
+    )
+
+    elements.append(Spacer(1, 20))
+
+    elements.append(
+        Paragraph(f"Patient Name: {bill[1]}", styles['Normal'])
+    )
+
+    elements.append(
+        Paragraph(f"Treatment: {bill[2]}", styles['Normal'])
+    )
+
+    elements.append(
+        Paragraph(f"Amount: ₹{bill[3]}", styles['Normal'])
+    )
+
+    doc.build(elements)
+
+    return send_file(
+        pdf_file,
+        as_attachment=True
     )
 # -----------------------------
 # RUN APP
