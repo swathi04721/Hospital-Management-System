@@ -2,39 +2,92 @@
 <html>
 <head>
     <title>Add Doctor</title>
+
+    <style>
+
+        body{
+            font-family:Arial, sans-serif;
+            background:#f4f7fc;
+            margin:0;
+            padding:30px;
+        }
+
+        .container{
+            width:500px;
+            margin:auto;
+            background:white;
+            padding:30px;
+            border-radius:12px;
+            box-shadow:0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        h1{
+            text-align:center;
+            color:#1f3c88;
+            margin-bottom:25px;
+        }
+
+        input{
+            width:100%;
+            padding:12px;
+            margin-bottom:15px;
+            border:1px solid #ccc;
+            border-radius:6px;
+            box-sizing:border-box;
+        }
+
+        button{
+            width:100%;
+            padding:12px;
+            background:#1f3c88;
+            color:white;
+            border:none;
+            border-radius:6px;
+            font-size:16px;
+            cursor:pointer;
+        }
+
+        button:hover{
+            background:#3056b3;
+        }
+
+    </style>
+
 </head>
+
 <body>
 
-<h1>Add Doctor</h1>
+<div class="container">
 
-<form action="/add_doctor" method="POST">
+    <h1>👨‍⚕️ Add Doctor</h1>
 
-    <input type="text"
-           name="name"
-           placeholder="Doctor Name"
-           required>
+    <form action="/add_doctor" method="POST">
 
-    <br><br>
+        <input
+            type="text"
+            name="name"
+            placeholder="Doctor Name"
+            required>
 
-    <input type="text"
-           name="specialization"
-           placeholder="Specialization"
-           required>
+        <input
+            type="text"
+            name="specialization"
+            placeholder="Specialization"
+            required>
 
-    <br><br>
+        <input
+            type="text"
+            name="phone"
+            placeholder="Phone Number"
+            required>
 
-    <input type="text"
-           name="phone"
-           placeholder="Phone Number"
-           required>
+        <button type="submit">
+            Add Doctor
+        </button>
 
-    <br><br>
+    </form>
 
-    <button type="submit">
-        Add Doctor
-    </button>
-
-</form>
+</div>
 
 </body>
 </html>

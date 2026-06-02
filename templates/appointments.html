@@ -2,38 +2,91 @@
 <html>
 <head>
     <title>Book Appointment</title>
+
+    <style>
+
+        body{
+            font-family:Arial, sans-serif;
+            background:#f4f7fc;
+            margin:0;
+            padding:30px;
+        }
+
+        .container{
+            width:500px;
+            margin:auto;
+            background:white;
+            padding:30px;
+            border-radius:12px;
+            box-shadow:0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        h1{
+            text-align:center;
+            color:#1f3c88;
+            margin-bottom:25px;
+        }
+
+        input{
+            width:100%;
+            padding:12px;
+            margin-bottom:15px;
+            border:1px solid #ccc;
+            border-radius:6px;
+            box-sizing:border-box;
+        }
+
+        button{
+            width:100%;
+            padding:12px;
+            background:#1f3c88;
+            color:white;
+            border:none;
+            border-radius:6px;
+            font-size:16px;
+            cursor:pointer;
+        }
+
+        button:hover{
+            background:#3056b3;
+        }
+
+    </style>
+
 </head>
+
 <body>
 
-<h1>Book Appointment</h1>
+<div class="container">
 
-<form action="/book_appointment" method="POST">
+    <h1>📅 Book Appointment</h1>
 
-    <input type="text"
-           name="patient_name"
-           placeholder="Patient Name"
-           required>
+    <form action="/book_appointment" method="POST">
 
-    <br><br>
+        <input
+            type="text"
+            name="patient_name"
+            placeholder="Patient Name"
+            required>
 
-    <input type="text"
-           name="doctor_name"
-           placeholder="Doctor Name"
-           required>
+        <input
+            type="text"
+            name="doctor_name"
+            placeholder="Doctor Name"
+            required>
 
-    <br><br>
+        <input
+            type="date"
+            name="appointment_date"
+            required>
 
-    <input type="date"
-           name="appointment_date"
-           required>
+        <button type="submit">
+            Book Appointment
+        </button>
 
-    <br><br>
+    </form>
 
-    <button type="submit">
-        Book Appointment
-    </button>
-
-</form>
+</div>
 
 </body>
 </html>
