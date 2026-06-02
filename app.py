@@ -426,6 +426,11 @@ def patient_profile(id):
 @app.route('/download_bill/<int:id>')
 def download_bill(id):
 
+    from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer
+    from reportlab.lib.styles import getSampleStyleSheet
+    from flask import send_file
+    from datetime import datetime
+
     cur.execute(
         "SELECT * FROM bills WHERE id=%s",
         (id,)
@@ -442,21 +447,54 @@ def download_bill(id):
     elements = []
 
     elements.append(
-        Paragraph("Hospital Invoice", styles['Title'])
+        Paragraph("SMART HOSPITAL", styles['Title'])
+    )
+
+    elements.append(
+        Paragraph("Hospital Management System", styles['Heading2'])
     )
 
     elements.append(Spacer(1, 20))
 
     elements.append(
-        Paragraph(f"Patient Name: {bill[1]}", styles['Normal'])
+        Paragraph(f"<b>Invoice Number:</b> {bill[0]}", styles['Normal'])
     )
 
     elements.append(
-        Paragraph(f"Treatment: {bill[2]}", styles['Normal'])
+        Paragraph(
+            f"<b>Date:</b> {datetime.now().strftime('%d-%m-%Y')}",
+            styles['Normal']
+        )
+    )
+
+    elements.append(Spacer(1, 20))
+
+    elements.append(
+        Paragraph(f"<b>Patient Name:</b> {bill[1]}", styles['Normal'])
     )
 
     elements.append(
-        Paragraph(f"Amount: ₹{bill[3]}", styles['Normal'])
+        Paragraph(f"<b>Treatment:</b> {bill[2]}", styles['Normal'])
+    )
+
+    elements.append(
+        Paragraph(f"<b>Amount:</b> ₹{bill[3]}", styles['Normal'])
+    )
+
+    elements.append(Spacer(1, 30))
+
+    elements.append(
+        Paragraph(
+            "Thank you for choosing Smart Hospital.",
+            styles['Heading3']
+        )
+    )
+
+    elements.append(
+        Paragraph(
+            "We wish you a speedy recovery.",
+            styles['Normal']
+        )
     )
 
     doc.build(elements)
