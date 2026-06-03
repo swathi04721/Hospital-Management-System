@@ -2,7 +2,7 @@
 
 <html>
 <head>
-    <title>Doctors List</title>
+    <title>Hospital Bills</title>
 
 ```
 <style>
@@ -42,6 +42,11 @@
         background:#f8f9ff;
     }
 
+    .amount{
+        color:green;
+        font-weight:bold;
+    }
+
 </style>
 ```
 
@@ -49,24 +54,24 @@
 
 <body>
 
-<h1>👨‍⚕️ Doctors List</h1>
+<h1>💰 Hospital Bills</h1>
 
 <table>
 
 <tr>
     <th>ID</th>
-    <th>Name</th>
-    <th>Specialization</th>
-    <th>Phone</th>
+    <th>Patient</th>
+    <th>Treatment</th>
+    <th>Amount</th>
 </tr>
 
-{% for doctor in doctors %}
+{% for bill in bills %}
 
 <tr>
-    <td>{{ doctor[0] }}</td>
-    <td>{{ doctor[1] }}</td>
-    <td>{{ doctor[2] }}</td>
-    <td>{{ doctor[3] }}</td>
+    <td>{{ bill[0] }}</td>
+    <td>{{ bill[1] }}</td>
+    <td>{{ bill[2] }}</td>
+    <td class="amount">₹{{ bill[3] }}</td>
 </tr>
 
 {% endfor %}
