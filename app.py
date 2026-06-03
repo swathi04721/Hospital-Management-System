@@ -503,6 +503,35 @@ def download_bill(id):
         pdf_file,
         as_attachment=True
     )
+@app.route('/ai_predictor')
+def ai_predictor():
+    return render_template('ai_predictor.html')
+
+
+@app.route('/predict_disease', methods=['POST'])
+def predict_disease():
+
+    symptoms = request.form['symptoms'].lower()
+
+    if "fever" in symptoms and "cough" in symptoms:
+        disease = "Flu"
+
+    elif "headache" in symptoms and "fever" in symptoms:
+        disease = "Viral Infection"
+
+    elif "chest pain" in symptoms:
+        disease = "Heart Disease Risk"
+
+    elif "stomach pain" in symptoms:
+        disease = "Gastric Problem"
+
+    else:
+        disease = "Consult Doctor for Diagnosis"
+
+    return render_template(
+        'ai_predictor.html',
+        prediction=disease
+    )
 # -----------------------------
 # RUN APP
 # -----------------------------

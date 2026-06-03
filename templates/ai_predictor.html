@@ -1,41 +1,83 @@
 <!DOCTYPE html>
 <html>
-
 <head>
+    <title>AI Disease Predictor</title>
 
-    <title>AI Health Predictor</title>
+    <style>
 
-    <link rel="stylesheet"
-    href="{{ url_for('static', filename='style.css') }}">
+        body{
+            font-family:Arial;
+            background:#f4f7fc;
+            padding:40px;
+        }
+
+        .box{
+            background:white;
+            padding:30px;
+            border-radius:15px;
+            max-width:700px;
+            margin:auto;
+            box-shadow:0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        h1{
+            color:#1f3c88;
+        }
+
+        textarea{
+            width:100%;
+            padding:12px;
+            border:1px solid #ddd;
+            border-radius:8px;
+        }
+
+        button{
+            margin-top:15px;
+            padding:12px 20px;
+            background:#1f3c88;
+            color:white;
+            border:none;
+            border-radius:8px;
+            cursor:pointer;
+        }
+
+        .result{
+            margin-top:20px;
+            padding:15px;
+            background:#e8f5e9;
+            border-radius:8px;
+            font-size:18px;
+        }
+
+    </style>
 
 </head>
 
 <body>
 
-<div class="login-box">
+<div class="box">
 
-    <h1>🤖 AI Health Risk Predictor</h1>
+    <h1>🤖 AI Disease Predictor</h1>
 
-    <form action="/predict" method="POST">
+    <form action="/predict_disease" method="POST">
 
-        <input type="number" name="age"
-        placeholder="Enter Age" required>
-
-        <input type="number" name="heart_rate"
-        placeholder="Heart Rate" required>
-
-        <input type="number" name="sugar"
-        placeholder="Sugar Level" required>
+        <textarea
+            name="symptoms"
+            rows="5"
+            placeholder="Enter symptoms (Example: fever, cough, headache)"
+            required></textarea>
 
         <button type="submit">
-            Predict Risk
+            Predict Disease
         </button>
 
     </form>
 
-    {% if result %}
+    {% if prediction %}
 
-    <h2>{{ result }}</h2>
+    <div class="result">
+        Predicted Disease: <b>{{ prediction }}</b>
+    </div>
 
     {% endif %}
 
