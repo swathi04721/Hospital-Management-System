@@ -6,70 +6,101 @@
     <style>
 
         body{
-            font-family:Arial;
-            background:#f4f6f9;
-            padding:20px;
+            font-family:Arial, sans-serif;
+            background:#f4f7fc;
+            padding:30px;
+        }
+
+        .container{
+            background:white;
+            padding:25px;
+            border-radius:15px;
+            box-shadow:0 4px 15px rgba(0,0,0,0.1);
+            margin-bottom:25px;
         }
 
         h1{
-            color:#2c3e50;
+            color:#1f3c88;
+            margin-top:0;
         }
 
         form{
-            margin-bottom:20px;
+            display:flex;
+            gap:10px;
         }
 
         input{
-            padding:10px;
-            width:300px;
+            flex:1;
+            padding:12px;
+            border:1px solid #ddd;
+            border-radius:8px;
+            font-size:15px;
         }
 
         button{
-            padding:10px 15px;
-            background:#2c3e50;
+            padding:12px 20px;
+            background:#1f3c88;
             color:white;
             border:none;
+            border-radius:8px;
             cursor:pointer;
+            font-size:15px;
+        }
+
+        button:hover{
+            background:#3056b3;
         }
 
         table{
             width:100%;
             border-collapse:collapse;
             background:white;
+            border-radius:15px;
+            overflow:hidden;
+            box-shadow:0 4px 15px rgba(0,0,0,0.1);
         }
 
         th{
-            background:#2c3e50;
+            background:#1f3c88;
             color:white;
-            padding:10px;
+            padding:15px;
         }
 
         td{
-            padding:10px;
-            border:1px solid #ddd;
+            padding:12px;
             text-align:center;
+            border-bottom:1px solid #eee;
+        }
+
+        tr:hover{
+            background:#f8f9ff;
         }
 
     </style>
 
 </head>
+
 <body>
 
-<h1>Search Patient</h1>
+<div class="container">
 
-<form method="POST">
+    <h1>🔍 Search Patient</h1>
 
-    <input
-        type="text"
-        name="keyword"
-        placeholder="Enter Patient Name"
-        required>
+    <form method="POST">
 
-    <button type="submit">
-        Search
-    </button>
+        <input
+            type="text"
+            name="keyword"
+            placeholder="Enter Patient Name"
+            required>
 
-</form>
+        <button type="submit">
+            Search
+        </button>
+
+    </form>
+
+</div>
 
 <table>
 
