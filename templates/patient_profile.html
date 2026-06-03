@@ -6,54 +6,116 @@
     <style>
 
         body{
-            font-family:Arial;
-            background:#f4f6f9;
-            padding:20px;
+            font-family:Arial, sans-serif;
+            background:#f4f7fc;
+            padding:30px;
         }
 
-        .box{
+        .profile-card{
             background:white;
-            padding:20px;
-            border-radius:10px;
-            margin-bottom:20px;
+            border-radius:15px;
+            padding:25px;
+            box-shadow:0 4px 15px rgba(0,0,0,0.1);
+            margin-bottom:25px;
+        }
+
+        .profile-header{
+            display:flex;
+            align-items:center;
+            gap:20px;
+        }
+
+        .avatar{
+            width:90px;
+            height:90px;
+            border-radius:50%;
+            background:#1f3c88;
+            color:white;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-size:40px;
+        }
+
+        .profile-info h1{
+            margin:0;
+            color:#1f3c88;
+        }
+
+        .profile-info p{
+            margin:8px 0;
+            color:#555;
+            font-size:16px;
+        }
+
+        .appointments{
+            background:white;
+            border-radius:15px;
+            padding:25px;
+            box-shadow:0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .appointments h2{
+            color:#1f3c88;
+            margin-top:0;
         }
 
         table{
             width:100%;
             border-collapse:collapse;
-            background:white;
         }
 
         th{
-            background:#2c3e50;
+            background:#1f3c88;
             color:white;
-            padding:10px;
+            padding:12px;
         }
 
         td{
-            padding:10px;
-            border:1px solid #ddd;
+            padding:12px;
+            border-bottom:1px solid #eee;
             text-align:center;
+        }
+
+        tr:hover{
+            background:#f8f9ff;
+        }
+
+        .status{
+            background:#28a745;
+            color:white;
+            padding:5px 10px;
+            border-radius:20px;
+            font-size:14px;
         }
 
     </style>
 
 </head>
+
 <body>
 
-<div class="box">
+<div class="profile-card">
 
-    <h1>Patient Profile</h1>
+    <div class="profile-header">
 
-    <h3>Name: {{ patient[1] }}</h3>
-    <h3>Age: {{ patient[2] }}</h3>
-    <h3>Disease: {{ patient[3] }}</h3>
+        <div class="avatar">
+            👤
+        </div>
+
+        <div class="profile-info">
+            <h1>{{ patient[1] }}</h1>
+            <p><strong>Age:</strong> {{ patient[2] }}</p>
+            <p><strong>Disease:</strong> {{ patient[3] }}</p>
+        </div>
+
+    </div>
 
 </div>
 
-<div class="box">
+<div class="appointments">
 
-    <h2>Appointments</h2>
+    <h2>📅 Appointment History</h2>
 
     <table>
 
@@ -70,7 +132,11 @@
             <td>{{ appointment[0] }}</td>
             <td>{{ appointment[2] }}</td>
             <td>{{ appointment[3] }}</td>
-            <td>{{ appointment[4] }}</td>
+            <td>
+                <span class="status">
+                    {{ appointment[4] }}
+                </span>
+            </td>
         </tr>
 
         {% endfor %}
