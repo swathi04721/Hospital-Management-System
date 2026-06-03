@@ -6,7 +6,7 @@ from reportlab.lib.styles import getSampleStyleSheet
 from flask import send_file
 
 app = Flask(__name__)
-
+print("APP STARTED")
 DATABASE_URL = os.getenv("DATABASE_URL")
 
 conn = psycopg2.connect(DATABASE_URL)
@@ -143,10 +143,10 @@ def add_patient():
     disease = request.form['disease']
 
     cur.execute(
-        """
+        '''
         INSERT INTO patients(name, age, disease)
         VALUES (%s, %s, %s)
-        """,
+        ''',
         (name, age, disease)
     )
 
