@@ -1,35 +1,99 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Medical History Records</title>
+    <title>Medical History</title>
+
+    <style>
+
+        body{
+            font-family:Arial, sans-serif;
+            background:#f4f7fc;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            min-height:100vh;
+            padding:20px;
+        }
+
+        .container{
+            background:white;
+            padding:40px;
+            width:600px;
+            border-radius:15px;
+            box-shadow:0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        h1{
+            text-align:center;
+            color:#1f3c88;
+            margin-bottom:25px;
+        }
+
+        input, textarea{
+            width:100%;
+            padding:12px;
+            margin-bottom:15px;
+            border:1px solid #ddd;
+            border-radius:8px;
+            box-sizing:border-box;
+            font-family:Arial, sans-serif;
+        }
+
+        textarea{
+            resize:vertical;
+        }
+
+        button{
+            width:100%;
+            padding:12px;
+            background:#1f3c88;
+            color:white;
+            border:none;
+            border-radius:8px;
+            cursor:pointer;
+            font-size:16px;
+        }
+
+        button:hover{
+            background:#3056b3;
+        }
+
+    </style>
+
 </head>
+
 <body>
 
-<h1>Medical History Records</h1>
+<div class="container">
 
-<table border="1">
+    <h1>📄 Medical History</h1>
 
-<tr>
-    <th>ID</th>
-    <th>Patient</th>
-    <th>Disease History</th>
-    <th>Allergies</th>
-    <th>Treatment Notes</th>
-</tr>
+    <form action="/add_medical_history" method="POST">
 
-{% for record in records %}
+        <input type="text"
+               name="patient_name"
+               placeholder="Patient Name"
+               required>
 
-<tr>
-    <td>{{ record[0] }}</td>
-    <td>{{ record[1] }}</td>
-    <td>{{ record[2] }}</td>
-    <td>{{ record[3] }}</td>
-    <td>{{ record[4] }}</td>
-</tr>
+        <textarea name="disease_history"
+                  placeholder="Disease History"
+                  rows="4"></textarea>
 
-{% endfor %}
+        <textarea name="allergies"
+                  placeholder="Allergies"
+                  rows="4"></textarea>
 
-</table>
+        <textarea name="treatment_notes"
+                  placeholder="Treatment Notes"
+                  rows="4"></textarea>
+
+        <button type="submit">
+            Save History
+        </button>
+
+    </form>
+
+</div>
 
 </body>
 </html>
