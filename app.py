@@ -8,7 +8,7 @@ from flask import send_file
 app = Flask(__name__)
 
 DATABASE_URL = os.getenv("DATABASE_URL")
-print("DATABASE_URL =", DATABASE_URL)
+
 conn = psycopg2.connect(DATABASE_URL)
 cur = conn.cursor()
 
